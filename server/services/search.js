@@ -18,7 +18,7 @@ module.exports = ({ strapi }) => ({
     const pageNumber = pagination?.page ? parseInt(pagination.page) : 1;
     const limit = parseInt(
       pagination?.pageSize ??
-        strapi.config.get("constants.DEFAULT_RESPONSE_LIMIT")
+      strapi.config.get("constants.DEFAULT_RESPONSE_LIMIT")
     );
     const start = limit * (pageNumber - 1);
 
@@ -44,31 +44,20 @@ module.exports = ({ strapi }) => ({
           filters: {
             id: orderedList, //_.map(searchGrouped[key], ({ entity_id }) => entity_id),
           },
-          populate: "*",
-          // populate: {
-          //   ArticleThemes: {
-          //     fields: ["id", "PageTitle", "PageUID"],
-          //   },
-          //   ThumbnailImage: true,
-          // },
+          populate: {
+            Seo: true,
+          },
         }),
       };
       entity.results = _.sortBy(entity.results, (obj) =>
         _.indexOf(orderedList, obj.id)
       );
-      //promises.push(entity);
+      entity.results = _.map(entity.results, (item) => ({ ...item, entity: key }));
       results = results.concat(entity.results);
     }
 
-    //let result = await Promise.all(promises);
-
-    // const allCategories = await strapi
-    //   .service("plugin::simple-global-search.search-config")
-    //   .getCategoriesCount(ctx);
-
     return {
       Result: results,
-      //category: allCategories,
       Meta: {
         Pagination: {
           Page: nextPage,
