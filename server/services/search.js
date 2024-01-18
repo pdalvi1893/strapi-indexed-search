@@ -57,13 +57,13 @@ module.exports = ({ strapi }) => ({
     }
 
     return {
-      Result: results,
-      Meta: {
-        Pagination: {
-          Page: nextPage,
-          PageSize: limit,
-          PageCount: totalPages,
-          Total: rowCount,
+      result: results,
+      meta: {
+        pagination: {
+          page: nextPage,
+          pageSize: limit,
+          pageCount: totalPages,
+          total: rowCount,
         },
       },
     };
