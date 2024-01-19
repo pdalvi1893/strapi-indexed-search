@@ -30,7 +30,7 @@ module.exports = ({ strapi }) => ({
 
     const rowCount = queryResult?.rows?.length;
     const totalPages = Math.ceil(queryResult?.rows?.length / limit);
-    const nextPage = totalPages > pageNumber ? pageNumber + 1 : pageNumber;
+    //const nextPage = totalPages > pageNumber ? pageNumber + 1 : pageNumber;
     queryResult.rows = queryResult.rows.slice(start, pageNumber * limit);
 
     const searchGrouped = _.groupBy(queryResult.rows, "entity");
@@ -60,7 +60,7 @@ module.exports = ({ strapi }) => ({
       data: results,
       meta: {
         pagination: {
-          page: nextPage,
+          page: pageNumber, //nextPage,
           pageSize: limit,
           pageCount: totalPages,
           total: rowCount,
