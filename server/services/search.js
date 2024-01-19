@@ -57,7 +57,7 @@ module.exports = ({ strapi }) => ({
     }
 
     return {
-      result: results,
+      data: results,
       meta: {
         pagination: {
           page: nextPage,
