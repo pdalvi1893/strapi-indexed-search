@@ -77,8 +77,14 @@ module.exports = ({ strapi }) => ({
 
     let promises = [];
     for (let entity of entities) {
+      let condition = { populate: "*" };
+      if (entity.filters) {
+        condition.filters = entity.filters;
+      }
+
       let entries = await strapi.entityService.findMany(entity.name, {
-        populate: "*",
+        ///populate: "*",
+        ...condition,
       });
 
       _.each(entries, (entry) => {
