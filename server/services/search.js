@@ -46,6 +46,19 @@ module.exports = ({ strapi }) => ({
           },
           populate: {
             Seo: true,
+            ParentPage: {
+              fields: ["PageTitle", "PageUid"],
+              populate: {
+                ParentPage: {
+                  fields: ["PageTitle", "PageUid"],
+                  populate: {
+                    ParentPage: {
+                      fields: ["PageTitle", "PageUid"],
+                    },
+                  },
+                },
+              },
+            },
           },
         }),
       };
